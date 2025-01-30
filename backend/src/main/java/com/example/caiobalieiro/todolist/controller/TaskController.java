@@ -50,9 +50,6 @@ public class TaskController {
             @RequestParam(required = false) String status) {
         try {
             List<Task> tasks = taskService.list(title, priority, status);
-
-            
-
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Tarefas encontradas com sucesso");
             response.put("data", tasks);

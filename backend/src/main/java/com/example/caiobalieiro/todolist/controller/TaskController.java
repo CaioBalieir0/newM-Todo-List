@@ -1,5 +1,6 @@
 package com.example.caiobalieiro.todolist.controller;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,29 +29,57 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<List<Task>> create(@RequestBody Task task) {
-        if (task.getTitle() == null || task.getDescription() == null) {
-            return ResponseEntity.badRequest().body(null); // Retorna erro 400 se title ou description forem nulos
+    public ResponseEntity<Task> create(@RequestBody Task task) {
+        try {
+            // Validação do título
+            if (task.getTitle() == null || task.getTitle().trim().isEmpty()) {
+                throw new IllegalArgumentException("O título é obrigatório");
+            }
+
+            task.setCreatedAt(Instant.now());
+
+            // Criando a tarefa
+            Task createdTask = taskService.create(task);
+
+            // Retorna a tarefa criada
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
+        } catch (IllegalArgumentException e) {
+            // Retorna erro 400 com a mensagem de exceção
+            return ResponseEntity.badRequest().body(null);  // Ou pode colocar a mensagem no corpo
         }
-        List<Task> tasks = taskService.create(task);
-        return ResponseEntity.status(HttpStatus.CREATED).body(tasks);
     }
+
 
     @GetMapping
     public List<Task> list() {
-        // Retorna todas as tarefas
         return taskService.list();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable("id") String id) {
+        try {
+            Task task = taskService.getTaskById(id);
+            return ResponseEntity.ok(task);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
-    @PutMapping
-    public List<Task> update(@RequestBody Task task) {
-        // Atualiza uma tarefa
-        return taskService.update(task);
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> update(@PathVariable("id") String id, @RequestBody Task task) {
+        Task updatedTask = taskService.update(id, task);
+        if (updatedTask == null) {
+            return ResponseEntity.notFound().build();
+        }
+        if (task.getTitle() == null || task.getTitle().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok(updatedTask);
     }
 
     @DeleteMapping("{id}")
     public List<Task> delete(@PathVariable("id") String id) {
-        // Deleta uma tarefa pelo ID
         return taskService.delete(id);
     }
+
+
 }

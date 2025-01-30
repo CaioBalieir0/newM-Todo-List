@@ -1,6 +1,6 @@
 # To-Do List - Desafio Técnico Fullstack
 
-Este é um projeto de lista de tarefas (To-Do List) desenvolvido com **React** , **TypeScript** e **MongoDB** . A aplicação é dividida em duas partes: o **frontend** , que é responsável pela interface do usuário, e o **backend** , que lida com as operações de dados e comunicação com o banco de dados MongoDB.
+Este é um projeto de lista de tarefas (To-Do List) desenvolvido com **React** , **TypeScript**, **MongoDB** e **Spring Boot** . A aplicação é dividida em duas partes: o **frontend** , que é responsável pela interface do usuário, e o **backend** , que lida com as operações de dados e comunicação com o banco de dados MongoDB.
 
 ## Estrutura do Projeto
 
@@ -38,6 +38,7 @@ Antes de começar, você precisa ter as seguintes dependências instaladas:
 - **JDK** **17**
 - **Node 20**
 - **MongoDB** (localmente ou usando o [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+- **Maven** (Ou utilizar alguma IDE com o Maven já instalado, por exemplo IntelliJ)
 
 ## Instalação
 
@@ -76,14 +77,17 @@ npm install
    ```
    mvn install
    ```
-
+   Caso o Maven não esteja instalado, você pode usar o Maven Wrapper (mvnw), que vem com o projeto, e não precisa instalar o Maven manualmente. Para isso, rode:
+    ```
+    mvnw install
+    ```
    Esse comando vai garantir que todas as dependências do projeto sejam baixadas.
 
 3. **Rodar o Backend:**
    Para iniciar o servidor Spring Boot, execute o seguinte comando:
 
    ```
-   ./mvnw spring-boot:run
+   mvnw spring-boot:run
    ```
 
    Isso vai iniciar o backend na **porta 8080** .

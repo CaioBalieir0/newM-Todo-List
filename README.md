@@ -36,7 +36,7 @@ O projeto está dividido em duas pastas principais:
 Antes de começar, você precisa ter as seguintes dependências instaladas:
 
 - **JDK** **17**
-- **npm** ou **yarn**
+- **Node 20**
 - **MongoDB** (localmente ou usando o [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
 
 ## Instalação
@@ -52,31 +52,68 @@ cd newM-Todo-List
 
 ### 2. **Instale as dependências**
 
-Instale as dependências na raíz do projeto:
+Instale as dependências na pasta `frontend `do projeto:
 
 ```
+cd frontend
 npm install
-```
-
-Em seguida, instale separadamente as dependências do frontend:
-
-- Para o **frontend** :
-
-```
-  cd frontend
-  npm install
-  cd ..
 ```
 
 ### 3. **Rodando o projeto**
 
-Para rodar tanto o frontend quanto o backend com um único comando, use:
+#### Passos para Rodar o Backend
 
-```
-npm run dev
-```
+1. **Navegue até a pasta do backend:**
+   No terminal, vá até a pasta `backend` do seu projeto:
 
-Esse comando irá iniciar os dois servidores simultaneamente:
+   ```
+   cd backend
+   ```
+
+2. **Instale as dependências do backend:**
+   Instale com o **Maven**:
+
+   ```
+   mvn install
+   ```
+
+   Esse comando vai garantir que todas as dependências do projeto sejam baixadas.
+
+3. **Rodar o Backend:**
+   Para iniciar o servidor Spring Boot, execute o seguinte comando:
+
+   ```
+   ./mvnw spring-boot:run
+   ```
+
+   Isso vai iniciar o backend na **porta 8080** .
+
+#### Passos para Rodar o Frontend
+
+1. **Navegue até a pasta do frontend:**
+   No terminal, vá até a pasta `frontend` do seu projeto:
+
+   ```
+   cd frontend
+   ```
+
+2. **Instale as dependências do frontend:**
+   Instale com o **npm**:
+
+   ```
+   npm install
+   ```
+
+   Esse comando vai garantir que todas as dependências do projeto sejam baixadas.
+
+3. **Rodar o frontend:**
+   Para iniciar o servidor Next, execute o seguinte comando:
+
+   ```
+   npm run dev
+   ```
+
+   Isso vai iniciar o backend na **porta 3000** .
 
 - O frontend será executado no **Next.js** na porta `3000`.
 - O backend será executado com **Spring Boot** na porta `8080`.
@@ -98,11 +135,13 @@ Esse comando irá iniciar os dois servidores simultaneamente:
 
 ### 4. **Configuração do MongoDB**
 
-Se deseja rodar o MongoDB localmente e ainda não estiver rodando, siga essas instruções
+Se deseja rodar o MongoDB localmente e ainda não estiver rodando, siga essas instruções:
 
 #### Passo 1: Iniciar o MongoDB
 
-#### **Windows:**
+Para iniciar o MongoDB localmente, abra o [MongoDB Compass](https://www.mongodb.com/products/tools/compass) e se conecte à sua base de dados local, ou se preferir siga as seguintes instruçoes de como rodar localmente no Windows sem ultilizar o MongoDB Compass:
+
+##### **Windows:**
 
 1. Abra o **Prompt de Comando** ou o **PowerShell** .
 2. Navegue até a pasta onde o MongoDB foi instalado (geralmente em `C:\Program Files\MongoDB\Server\<sua-versão>\bin\`).
@@ -111,13 +150,11 @@ Se deseja rodar o MongoDB localmente e ainda não estiver rodando, siga essas in
 mongod
 ```
 
-3. Ou se preferir, conecte-se localmente utilizando a interface do MongoDB Compass.
-
 #### Se deseja rodar o MongoDB Atlas,
 
-Se estiver usando o [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), configure a URL de conexão no arquivo `.env` na pasta `backend`:
+Se estiver usando o [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), que armazena os dados em nuvem, configure a URL de conexão no arquivo `.application.properties`, na pasta `\backend\src\main\resources`:
 
 ```
-MONGODB_URI=mongodb://<seu-usuario>:<sua-senha>@<endereço-do-mongo>:<porta>/<nome-do-banco>
+spring.data.mongodb.uri=//<seu-usuario>:<sua-senha>@<endereço-do-mongo>:<porta>/<nome-do-banco>
 
 ```

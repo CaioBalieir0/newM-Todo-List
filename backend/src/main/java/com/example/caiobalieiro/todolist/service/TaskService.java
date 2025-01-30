@@ -2,6 +2,7 @@ package com.example.caiobalieiro.todolist.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,18 @@ import com.example.caiobalieiro.todolist.repository.TaskRepository;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
-    
+
+    @Autowired
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
     public List<Task> create(Task task) {
-        taskRepository.save(task);   
+        taskRepository.save(task);
+        System.out.println("Criando tarefa: " + task);
         return list();  
     }
 

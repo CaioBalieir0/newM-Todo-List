@@ -2,6 +2,9 @@ package com.example.caiobalieiro.todolist.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,25 +23,34 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/todos")
 @AllArgsConstructor
 public class TaskController {
+
+    @Autowired
     private TaskService taskService;
 
     @PostMapping
-    List<Task> create(@RequestBody Task task) {
-        return taskService.create(task);
+    public ResponseEntity<List<Task>> create(@RequestBody Task task) {
+        if (task.getTitle() == null || task.getDescription() == null) {
+            return ResponseEntity.badRequest().body(null); // Retorna erro 400 se title ou description forem nulos
+        }
+        List<Task> tasks = taskService.create(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tasks);
     }
 
     @GetMapping
-    List<Task> list(){
+    public List<Task> list() {
+        // Retorna todas as tarefas
         return taskService.list();
     }
 
     @PutMapping
-    List<Task> update(@RequestBody Task task){
+    public List<Task> update(@RequestBody Task task) {
+        // Atualiza uma tarefa
         return taskService.update(task);
     }
 
     @DeleteMapping("{id}")
-    List<Task> delete(@PathVariable("id") String id){
+    public List<Task> delete(@PathVariable("id") String id) {
+        // Deleta uma tarefa pelo ID
         return taskService.delete(id);
     }
 }

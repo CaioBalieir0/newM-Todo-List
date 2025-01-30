@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import com.example.caiobalieiro.todolist.entity.Task;
 import com.example.caiobalieiro.todolist.repository.TaskRepository;
@@ -15,10 +17,12 @@ import com.example.caiobalieiro.todolist.repository.TaskRepository;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository,MongoTemplate mongoTemplate) {
         this.taskRepository = taskRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     public Task create(Task task) {
@@ -31,9 +35,20 @@ public class TaskService {
     }
 
 
-    public List<Task> list() {
-        Sort sort = Sort.by(Sort.Order.asc("createdAt"));
-        return taskRepository.findAll(sort);
+    public List<Task> list(String title, String priority, String status) {
+        Query query = new Query();
+
+        if (title != null && !title.trim().isEmpty()) {
+            query.addCriteria(Criteria.where("title").regex(title, "i"));
+        }
+        if (priority != null && !priority.trim().isEmpty()) {
+            query.addCriteria(Criteria.where("priority").is(priority));
+        }
+        if (status != null && !status.trim().isEmpty()) {
+            query.addCriteria(Criteria.where("status").is(status));
+        }
+
+        return mongoTemplate.find(query, Task.class);
     }
 
     public Task update(String id, Task task) {
@@ -58,7 +73,7 @@ public class TaskService {
 
     public List<Task> delete(String id) {
         taskRepository.deleteById(id);
-        return list();
+        return list(null,null,null);
     }
 
     public Task getTaskById(String id) {

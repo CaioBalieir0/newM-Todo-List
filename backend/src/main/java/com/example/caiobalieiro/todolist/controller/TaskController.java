@@ -28,21 +28,17 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<Task> create(@RequestBody Task task) {
         try {
-            // Validação do título
             if (task.getTitle() == null || task.getTitle().trim().isEmpty()) {
                 throw new IllegalArgumentException("O título é obrigatório");
             }
 
             task.setCreatedAt(Instant.now());
 
-            // Criando a tarefa
             Task createdTask = taskService.create(task);
 
-            // Retorna a tarefa criada
             return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
         } catch (IllegalArgumentException e) {
-            // Retorna erro 400 com a mensagem de exceção
-            return ResponseEntity.badRequest().body(null);  // Ou pode colocar a mensagem no corpo
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
@@ -96,6 +92,4 @@ public class TaskController {
     public List<Task> delete(@PathVariable("id") String id) {
         return taskService.delete(id);
     }
-
-
 }

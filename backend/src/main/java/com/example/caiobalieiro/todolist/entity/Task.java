@@ -5,9 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.CreatedDate;
 
-import com.example.caiobalieiro.todolist.entity.enums.Status;
-import com.example.caiobalieiro.todolist.entity.enums.Priority;
-
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
@@ -24,9 +21,9 @@ public class Task {
     @Field("description")
     private String description;
     @Field("priority")
-    private Priority priority;
+    private String priority;
     @Field("status")
-    private Status status;
+    private String status;
 
     @CreatedDate
     private Instant createdAt;
@@ -55,19 +52,19 @@ public class Task {
         this.description = description;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

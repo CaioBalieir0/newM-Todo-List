@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 interface Task {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   status: string;
@@ -36,7 +36,7 @@ export default function useTaskUpdate(taskId: string) {
 
       if (response.status === 200) {
         setSuccess(true);
-        setMessage(response.data.message);
+        setMessage("Tarefa atualizada com sucesso!");
       }
     } catch (err: any) {
       setError(err.message || "Erro ao atualizar a tarefa.");

@@ -28,7 +28,7 @@ export default function useCreateTask() {
 
       if (response.status === 201) {
         setSuccess(true);
-        setMessage(response.data.message);
+        setMessage("Tarefa criada com sucesso!");
       }
     } catch (err: any) {
       console.error(err);

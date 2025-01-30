@@ -26,11 +26,10 @@ export default function FormEdit({ taskId }: FormEditProps) {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/${taskId}`
         );
-        setTitle(response.data.data.title);
-        setDescription(response.data.data.description);
-        setPriority(response.data.data.priority);
-        setStatus(response.data.data.status);
-        console.log(response.data.data);
+        setTitle(response.data.title);
+        setDescription(response.data.description);
+        setPriority(response.data.priority);
+        setStatus(response.data.status);
       } catch (err) {
         console.error("Erro ao carregar tarefa:", err);
       }

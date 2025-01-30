@@ -51,10 +51,7 @@ public class TaskController {
         try {
             List<Task> tasks = taskService.list(title, priority, status);
 
-            if (tasks.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(Collections.singletonMap("message", "Não existe nenhuma tarefa adicionada."));
-            }
+            
 
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Tarefas encontradas com sucesso");

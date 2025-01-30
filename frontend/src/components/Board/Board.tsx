@@ -54,9 +54,9 @@ export default function Board({ titulo, status, filters }: BoardProps) {
         <Row>
           {filteredTasks.length > 0 ? (
             filteredTasks.map((task) => (
-              <Col key={task._id} className="mb-3 col-12">
+              <Col key={task.id} className="mb-3 col-12">
                 <Task
-                  _id={task._id}
+                  id={task.id}
                   titulo={task.title}
                   descricao={task.description}
                   status={task.status}

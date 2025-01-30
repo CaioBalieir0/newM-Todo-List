@@ -19,7 +19,7 @@ export default function useDeleteTask() {
 
       if (response.status === 200) {
         setSuccess(true);
-        setMessage(response.data.message);
+        setMessage("Tarefa excluida com sucesso!");
       }
     } catch (err: any) {
       console.log(err);

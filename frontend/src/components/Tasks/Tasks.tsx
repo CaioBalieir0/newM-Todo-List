@@ -4,7 +4,7 @@ import ModalEdit from "../Modals/ModalEdit";
 import ModalDelete from "../Modals/ModalDelete";
 
 interface TaskProps {
-  _id: string;
+  id: string;
   titulo: string;
   descricao: string;
   prioridade: string;
@@ -13,7 +13,7 @@ interface TaskProps {
 }
 
 export default function Task({
-  _id,
+  id,
   titulo,
   descricao,
   prioridade,
@@ -72,10 +72,10 @@ export default function Task({
         </Row>
         <Row className="text-center justify-content-center">
           <Col>
-            <ModalEdit modalTaskId={_id} />
+            <ModalEdit modalTaskId={id} />
           </Col>
           <Col>
-            <ModalDelete modalTaskId={_id} />
+            <ModalDelete modalTaskId={id} />
           </Col>
         </Row>
       </div>

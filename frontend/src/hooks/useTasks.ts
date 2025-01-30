@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Task {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   status: string;

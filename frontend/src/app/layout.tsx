@@ -18,7 +18,7 @@ export default function RootLayout({
             <NavItem className="ms-3 mt-1 mb-1">
               <h1 className="display-6 fs-4">
                 Lista de tarefas |{" "}
-                <span className="text-white">InfinityBase</span>
+                <span className="text-white">New M</span>
               </h1>
             </NavItem>
             <NavItem className="d-flex align-items-center">
